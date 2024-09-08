@@ -1,20 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import Home from './src/screens/Home';
+import Details from './src/screens/Details/index'
+import Search from './src/screens/Search';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function App() {
+
+const App = () => {
+
+
+  const Stack = createStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View className="flex-1" >
+      <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName='Home'>
+        <Stack.Screen name='Home' component={Home} options={{headerShown: false}} />
+        <Stack.Screen name='Details' component={Details} options={{
+          headerBackTitleVisible: false,
+          headerBackImage: () => <Ionicons name="chevron-back" size={34} color="black" style={{marginLeft: 10}} />,
+          headerTitleStyle:{
+            fontSize: 24,
+            letterSpacing: 2,
+          },
+          headerStyle:{
+            backgroundColor: "#f5f5f5"
+          }
+        }}/>
+        <Stack.Screen name='Search' component={Search} options={{
+          headerBackTitleVisible: false,
+          headerBackImage: () => <Ionicons name="chevron-back" size={34} color="black" style={{marginLeft: 10}} />,
+          headerTitleStyle:{
+            fontSize: 24,
+            letterSpacing: 2,
+          },
+          headerTransparent: true,
+        }}/>
+      </Stack.Navigator>
+      </NavigationContainer>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
